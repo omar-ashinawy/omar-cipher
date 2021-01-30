@@ -1,6 +1,6 @@
 from numpy import array, mod, sqrt, matmul, ndarray, linalg, add, subtract, rint
 from converter import Converter
-class Caeser():
+class Caesar():
     def __init__(self, key, converter):
         self.__converter = converter
         self.__key = key
@@ -116,7 +116,7 @@ class Hill():
         decrypted_nums = ndarray.flatten(array(decrypted_nums))
         return self.__converter.nums_to_str(decrypted_nums)
 
-class Vegenere():
+class Vigenere():
     def __init__(self, key, converter, auto_mode = True):
         self.__converter = converter
         self.__key = key.replace(' ', '').lower()
@@ -156,17 +156,17 @@ class Vernam():
         return self.__converter.nums_to_str(decrypted_nums)
 
 class Classical_Ciphers():
-    def __init__(self, cipher, key, vegenere_auto_mode = True):
+    def __init__(self, cipher, key, vigenere_auto_mode = True):
         self.__converter = Converter()
         self.__cipher_type = cipher.lower()
-        if self.__cipher_type == 'caeser':
-            self.__cipher = Caeser(key, self.__converter)
+        if self.__cipher_type == 'caesar':
+            self.__cipher = Caesar(key, self.__converter)
         elif self.__cipher_type == 'playfair':
             self.__cipher = PlayFair(key, self.__converter)
         elif self.__cipher_type == 'hill':
             self.__cipher = Hill(key, self.__converter)
-        elif self.__cipher_type == 'vegenere':
-            self.__cipher = Vegenere(key, self.__converter, vegenere_auto_mode)
+        elif self.__cipher_type == 'vigenere':
+            self.__cipher = Vigenere(key, self.__converter, vigenere_auto_mode)
         elif self.__cipher_type == 'vernam':
             self.__cipher = Vernam(key, self.__converter)
         else:
@@ -177,7 +177,7 @@ class Classical_Ciphers():
         return self.__cipher.decrypt(message.replace(' ', '').lower())
 
 # Usage Example
-# cipher = Classical_Ciphers('vegenere', 'aether')
+# cipher = Classical_Ciphers('vigenere', 'aether')
 # encrypted = cipher.encrypt('lemfazxf')
 # print(encrypted)
 # decrypted = cipher.decrypt(encrypted)
