@@ -131,13 +131,15 @@ class Vegenere():
             key = key[: len(message)]
         return key
     def encrypt(self, message):
-        self.__key = array(self.__converter.str_to_nums(self.__expand_key(self.__key, message, self.__auto_mode))) 
+        self.__key = self.__expand_key(self.__key, message, self.__auto_mode)
+        num_key = array(self.__converter.str_to_nums(self.__key))
         nums = array(self.__converter.str_to_nums(message))
-        encrypted_nums = mod(add(nums, self.__key), 26)
+        encrypted_nums = mod(add(nums, num_key), 26)
         return self.__converter.nums_to_str(encrypted_nums)
     def decrypt(self, message):
+        num_key = array(self.__converter.str_to_nums(self.__key))
         nums = array(self.__converter.str_to_nums(message))
-        decrypted_nums = mod(subtract(nums, self.__key), 26)
+        decrypted_nums = mod(subtract(nums, num_key), 26)
         return self.__converter.nums_to_str(decrypted_nums)
 
 class Vernam():
@@ -175,8 +177,8 @@ class Classical_Ciphers():
         return self.__cipher.decrypt(message.replace(' ', '').lower())
 
 # Usage Example
-cipher = Classical_Ciphers('playfair', 'rats')
-encrypted = cipher.encrypt('omarashinawy')
-print(encrypted)
-decrypted = cipher.decrypt(encrypted)
-print(decrypted)
+# cipher = Classical_Ciphers('vegenere', 'aether')
+# encrypted = cipher.encrypt('lemfazxf')
+# print(encrypted)
+# decrypted = cipher.decrypt(encrypted)
+# print(decrypted)
